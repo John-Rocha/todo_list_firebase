@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:todo_list_firebase/blocs/task_bloc/task_event.dart';
 import 'package:todo_list_firebase/models/task.dart';
 
 part 'task_state.dart';
 
-class TaskBloc extends Bloc<TaskEvent, TaskState> {
+class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
   TaskBloc() : super(const TaskState()) {
     on<AddTask>(_onAddTask);
     on<UpdateTask>(_onUpdateTask);
@@ -50,4 +50,10 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
 
     emit(TaskState(allTasks: List.from(state.allTasks)..remove(task)));
   }
+
+  @override
+  TaskState? fromJson(Map<String, dynamic> json) => TaskState.fromMap(json);
+
+  @override
+  Map<String, dynamic>? toJson(TaskState state) => state.toMap();
 }
