@@ -30,13 +30,14 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     UpdateTask event,
     Emitter<TaskState> emit,
   ) async {
-    final state = this.state;
     final task = event.task;
 
-    List<Task> allTasks = List.from(state.allTasks)..remove(task);
+    final index = state.allTasks.indexOf(task);
+
+    List<Task> allTasks = [...state.allTasks]..remove(task);
     task.isDone == false
-        ? allTasks.add(task.copyWith(isDone: true))
-        : allTasks.add(task.copyWith(isDone: false));
+        ? allTasks.insert(index, task.copyWith(isDone: true))
+        : allTasks.insert(index, task.copyWith(isDone: false));
 
     emit(TaskState(allTasks: allTasks));
   }
@@ -44,5 +45,9 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   FutureOr<void> _onDeleteTask(
     DeleteTask event,
     Emitter<TaskState> emit,
-  ) async {}
+  ) async {
+    final task = event.task;
+
+    emit(TaskState(allTasks: List.from(state.allTasks)..remove(task)));
+  }
 }
