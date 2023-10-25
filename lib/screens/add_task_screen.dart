@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_firebase/blocs/task_bloc/task_bloc.dart';
 import 'package:todo_list_firebase/blocs/task_bloc/task_event.dart';
 import 'package:todo_list_firebase/models/task.dart';
+import 'package:todo_list_firebase/services/guid_gen.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
@@ -49,7 +50,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  var task = Task(title: _titleController.text);
+                  var task = Task(
+                    id: GUIDGen.generate(),
+                    title: _titleController.text,
+                  );
                   context.read<TaskBloc>().add(AddTask(task: task));
                   Navigator.of(context).pop();
                 },
