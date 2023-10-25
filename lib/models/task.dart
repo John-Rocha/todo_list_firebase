@@ -1,15 +1,20 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 class Task extends Equatable {
   final String title;
-  final bool? isDone;
-  final bool? isDeleted;
+  bool? isDone;
+  bool? isDeleted;
 
-  const Task({
+  Task({
     required this.title,
     this.isDone = false,
     this.isDeleted = false,
-  }) : assert(isDone ?? false, isDeleted ?? false);
+  }) {
+    isDone = isDone ?? false;
+    isDeleted = isDeleted ?? false;
+  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
