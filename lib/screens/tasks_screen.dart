@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_firebase/blocs/task_bloc/task_bloc.dart';
 import 'package:todo_list_firebase/models/task.dart';
 import 'package:todo_list_firebase/screens/add_task_screen.dart';
+import 'package:todo_list_firebase/screens/my_drawer.dart';
 import 'package:todo_list_firebase/widgets/task_list.dart';
 
 class TasksScreen extends StatefulWidget {
@@ -31,6 +32,7 @@ class _TasksScreenState extends State<TasksScreen> {
           appBar: AppBar(
             title: const Text('Tasks App'),
           ),
+          drawer: const MyDrawer(),
           body: Padding(
             padding: const EdgeInsets.all(8),
             child: Column(
