@@ -33,7 +33,17 @@ class _TasksScreenState extends State<TasksScreen> {
           ),
           body: Padding(
             padding: const EdgeInsets.all(8),
-            child: TaskList(tasks: taskList),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Chip(
+                    label: Text('${state.allTasks.length} Tasks'),
+                  ),
+                ),
+                TaskList(tasks: taskList),
+              ],
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () => _addTask(context),
