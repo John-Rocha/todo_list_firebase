@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:todo_list_firebase/models/task.dart';
+part of 'task_bloc.dart';
 
 class TaskEvent extends Equatable {
   const TaskEvent();

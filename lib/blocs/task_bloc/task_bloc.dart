@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:todo_list_firebase/blocs/task_bloc/task_event.dart';
 import 'package:todo_list_firebase/models/task.dart';
 
 part 'task_state.dart';
+part 'task_event.dart';
 
 class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
   TaskBloc() : super(const TaskState()) {
