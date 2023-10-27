@@ -29,7 +29,8 @@ class MyDrawer extends StatelessWidget {
               builder: (context, state) {
                 return ListTile(
                   onTap: () {
-                    Navigator.of(context).pushNamed(TasksScreen.route);
+                    Navigator.of(context)
+                        .pushReplacementNamed(TasksScreen.route);
                   },
                   leading: const Icon(Icons.folder_special),
                   title: const Text('My Tasks'),
@@ -42,7 +43,8 @@ class MyDrawer extends StatelessWidget {
               builder: (context, state) {
                 return ListTile(
                   onTap: () {
-                    Navigator.of(context).pushNamed(RecycleBin.route);
+                    Navigator.of(context)
+                        .pushReplacementNamed(RecycleBin.route);
                   },
                   leading: const Icon(Icons.delete),
                   title: const Text('Bin'),
