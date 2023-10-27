@@ -11,6 +11,8 @@ import 'package:todo_list_firebase/widgets/task_list.dart';
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
 
+  static const route = 'task_screen';
+
   @override
   State<TasksScreen> createState() => _TasksScreenState();
 }

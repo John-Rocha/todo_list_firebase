@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list_firebase/screens/recycle_bin.dart';
+import 'package:todo_list_firebase/screens/tasks_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -21,16 +23,22 @@ class MyDrawer extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
-            const ListTile(
-              leading: Icon(Icons.folder_special),
-              title: Text('My Tasks'),
-              trailing: Text('0'),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed(TasksScreen.route);
+              },
+              leading: const Icon(Icons.folder_special),
+              title: const Text('My Tasks'),
+              trailing: const Text('0'),
             ),
             const Divider(),
-            const ListTile(
-              leading: Icon(Icons.delete),
-              title: Text('Bin'),
-              trailing: Text('0'),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed(RecycleBin.route);
+              },
+              leading: const Icon(Icons.delete),
+              title: const Text('Bin'),
+              trailing: const Text('0'),
             )
           ],
         ),

@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:todo_list_firebase/blocs/task_bloc/task_bloc.dart';
 import 'package:todo_list_firebase/core/ui/app_ui.dart';
 import 'package:todo_list_firebase/screens/tasks_screen.dart';
+import 'package:todo_list_firebase/services/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppUi.theme,
+        onGenerateRoute: (settings) => AppRouter().onGenerateRoute(settings),
         home: const TasksScreen(),
       ),
     );
