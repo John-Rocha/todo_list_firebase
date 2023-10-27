@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_list_firebase/blocs/task_bloc/task_bloc.dart';
 import 'package:todo_list_firebase/screens/recycle_bin.dart';
 import 'package:todo_list_firebase/screens/tasks_screen.dart';
 
@@ -23,22 +25,30 @@ class MyDrawer extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
-            ListTile(
-              onTap: () {
-                Navigator.of(context).pushNamed(TasksScreen.route);
+            BlocBuilder<TaskBloc, TaskState>(
+              builder: (context, state) {
+                return ListTile(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(TasksScreen.route);
+                  },
+                  leading: const Icon(Icons.folder_special),
+                  title: const Text('My Tasks'),
+                  trailing: Text('${state.allTasks.length}'),
+                );
               },
-              leading: const Icon(Icons.folder_special),
-              title: const Text('My Tasks'),
-              trailing: const Text('0'),
             ),
             const Divider(),
-            ListTile(
-              onTap: () {
-                Navigator.of(context).pushNamed(RecycleBin.route);
+            BlocBuilder<TaskBloc, TaskState>(
+              builder: (context, state) {
+                return ListTile(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(RecycleBin.route);
+                  },
+                  leading: const Icon(Icons.delete),
+                  title: const Text('Bin'),
+                  trailing: Text('${state.removedTasks.length}'),
+                );
               },
-              leading: const Icon(Icons.delete),
-              title: const Text('Bin'),
-              trailing: const Text('0'),
             )
           ],
         ),
