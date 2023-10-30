@@ -6,7 +6,6 @@ class AppThemes {
   static final appThemeData = {
     AppTheme.darkTheme: ThemeData(
       primaryColor: Colors.black,
-      brightness: Brightness.dark,
       dividerColor: Colors.black54,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Colors.white,
@@ -21,7 +20,10 @@ class AppThemes {
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.grey, unselectedItemColor: Colors.white),
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey).copyWith(
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: Colors.grey,
+        brightness: Brightness.dark,
+      ).copyWith(
         background: const Color(0xFF212121),
       ),
     ),
