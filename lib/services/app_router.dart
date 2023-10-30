@@ -18,7 +18,7 @@ class AppRouter {
         ),
       TabsScreen.route => MaterialPageRoute(
           builder: (_) {
-            return TabsScreen();
+            return const TabsScreen();
           },
         ),
       _ => null,

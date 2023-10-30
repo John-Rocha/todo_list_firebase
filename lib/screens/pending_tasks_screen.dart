@@ -28,7 +28,7 @@ class _PendingTasksScreenState extends State<PendingTasksScreen> {
             children: [
               Center(
                 child: Chip(
-                  label: Text('${state.pendingTasks.length} Tasks'),
+                  label: Text('${taskList.length} Tasks'),
                 ),
               ),
               TaskList(tasks: taskList),

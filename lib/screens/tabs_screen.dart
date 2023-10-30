@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_firebase/screens/add_task_screen.dart';
+import 'package:todo_list_firebase/screens/complete_tasks_screen.dart';
+import 'package:todo_list_firebase/screens/favorite_tasks_screen.dart';
 import 'package:todo_list_firebase/screens/my_drawer.dart';
 import 'package:todo_list_firebase/screens/pending_tasks_screen.dart';
 
@@ -21,11 +23,11 @@ class _TabsScreenState extends State<TabsScreen> {
       'title': 'Pending Tasks',
     },
     {
-      'page': const PendingTasksScreen(),
+      'page': const CompleteTasksScreen(),
       'title': 'Complete Tasks',
     },
     {
-      'page': const PendingTasksScreen(),
+      'page': const FavoriteTasksScreen(),
       'title': 'Favorite Tasks',
     },
   ];

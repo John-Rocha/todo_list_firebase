@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
                 : AppThemes.appThemeData[AppTheme.lightTheme],
             onGenerateRoute: (settings) =>
                 AppRouter().onGenerateRoute(settings),
-            home: TabsScreen(),
+            home: const TabsScreen(),
           );
         },
       ),
