@@ -13,6 +13,7 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
     on<UpdateTask>(_onUpdateTask);
     on<DeleteTask>(_onDeleteTask);
     on<RemoveTask>(_onRemoveTask);
+    on<FavoriteTask>(_onFavoriteTask);
   }
 
   FutureOr<void> _onAddTask(
@@ -38,15 +39,18 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
 
     List<Task> pendingTasks = state.pendingTasks;
     List<Task> completedTasks = state.completedTasks;
+    List<Task> favoriteTasks = state.favoriteTasks;
 
     task.isDone == false
         ? {
             pendingTasks = List.from(pendingTasks)..remove(task),
+            favoriteTasks = List.from(favoriteTasks)..remove(task),
             completedTasks = List.from(completedTasks)
               ..insert(0, task.copyWith(isDone: true)),
           }
         : {
             completedTasks = List.from(completedTasks)..remove(task),
+            favoriteTasks = List.from(favoriteTasks)..remove(task),
             pendingTasks = List.from(pendingTasks)
               ..insert(0, task.copyWith(isDone: false)),
           };
@@ -94,4 +98,19 @@ class TaskBloc extends HydratedBloc<TaskEvent, TaskState> {
 
   @override
   Map<String, dynamic>? toJson(TaskState state) => state.toMap();
+
+  FutureOr<void> _onFavoriteTask(
+    FavoriteTask event,
+    Emitter<TaskState> emit,
+  ) {
+    final state = this.state;
+    emit(
+      TaskState(
+        pendingTasks: state.pendingTasks,
+        completedTasks: state.completedTasks,
+        favoriteTasks: List.from(state.favoriteTasks)..add(event.task),
+        removedTasks: state.removedTasks,
+      ),
+    );
+  }
 }

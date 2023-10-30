@@ -13,10 +13,12 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
 
   @override
   void dispose() {
     _titleController.dispose();
+    _descriptionController.dispose();
     super.dispose();
   }
 
@@ -40,6 +42,17 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ),
           ),
           const SizedBox(height: 12),
+          TextField(
+            controller: _descriptionController,
+            minLines: 3,
+            maxLines: 5,
+            maxLength: 100,
+            decoration: const InputDecoration(
+              label: Text('Description'),
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -52,6 +65,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   var task = Task(
                     id: GUIDGen.generate(),
                     title: _titleController.text,
+                    description: _descriptionController.text,
                   );
                   context.read<TaskBloc>().add(AddTask(task: task));
                   Navigator.of(context).pop();

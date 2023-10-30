@@ -15,11 +15,11 @@ class CompleteTasksScreen extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
                 child: Chip(
-                  label: Text('${taskList.length} Tasks'),
+                  label: Text(
+                      '${taskList.length} Complete | ${state.pendingTasks.length} Pending | ${state.favoriteTasks.length} Favorite'),
                 ),
               ),
               TaskList(tasks: taskList),

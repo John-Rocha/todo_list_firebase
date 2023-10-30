@@ -24,11 +24,11 @@ class _PendingTasksScreenState extends State<PendingTasksScreen> {
         return Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
                 child: Chip(
-                  label: Text('${taskList.length} Tasks'),
+                  label: Text(
+                      '${taskList.length} Pending | ${state.completedTasks.length} Complete | ${state.favoriteTasks.length} Favorite'),
                 ),
               ),
               TaskList(tasks: taskList),

@@ -35,7 +35,15 @@ class _TabsScreenState extends State<TabsScreen> {
   void _addTask(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) => const AddTaskScreen(),
+      isScrollControlled: true,
+      builder: (context) => SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: const AddTaskScreen(),
+        ),
+      ),
     );
   }
 
@@ -44,12 +52,14 @@ class _TabsScreenState extends State<TabsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_pageDetails[_selectedPageIndex]['title']),
-        actions: [
-          IconButton(
-            onPressed: () => _addTask(context),
-            icon: const Icon(Icons.add),
-          ),
-        ],
+        actions: _selectedPageIndex == 0
+            ? [
+                IconButton(
+                  onPressed: () => _addTask(context),
+                  icon: const Icon(Icons.add),
+                ),
+              ]
+            : null,
       ),
       drawer: const MyDrawer(),
       body: _pageDetails[_selectedPageIndex]['page'],
@@ -62,7 +72,8 @@ class _TabsScreenState extends State<TabsScreen> {
         },
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.list), label: 'Pending Tasks'),
+              icon: Icon(Icons.incomplete_circle_sharp),
+              label: 'Pending Tasks'),
           BottomNavigationBarItem(
               icon: Icon(Icons.done), label: 'Complete Tasks'),
           BottomNavigationBarItem(

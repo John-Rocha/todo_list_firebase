@@ -19,6 +19,7 @@ class TaskTile extends StatelessWidget {
     return ListTile(
       title: Text(
         task.title,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(
           decoration: task.isDone! ? TextDecoration.lineThrough : null,
         ),
@@ -26,14 +27,23 @@ class TaskTile extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      tileColor: task.isDone == true ? Colors.grey : null,
-      trailing: Checkbox(
-        value: task.isDone,
-        onChanged: task.isDeleted == false
-            ? (value) {
-                context.read<TaskBloc>().add(UpdateTask(task: task));
-              }
-            : null,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            onPressed: () =>
+                context.read<TaskBloc>().add(FavoriteTask(task: task)),
+            icon: const Icon(Icons.favorite),
+          ),
+          Checkbox(
+            value: task.isDone,
+            onChanged: task.isDeleted == false
+                ? (value) {
+                    context.read<TaskBloc>().add(UpdateTask(task: task));
+                  }
+                : null,
+          ),
+        ],
       ),
       onLongPress: () => _removeOrDeleteTask(context, task),
     );
