@@ -23,6 +23,10 @@ class TaskTile extends StatelessWidget {
           decoration: task.isDone! ? TextDecoration.lineThrough : null,
         ),
       ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      tileColor: task.isDone == true ? Colors.grey[300] : null,
       trailing: Checkbox(
         value: task.isDone,
         onChanged: task.isDeleted == false
