@@ -11,10 +11,14 @@ class TaskList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: tasks.length,
         itemBuilder: (context, index) {
           final task = tasks[index];
-          return TaskTile(task: task);
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: TaskTile(task: task),
+          );
         },
       ),
     );

@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:todo_list_firebase/screens/add_task_screen.dart';
+import 'package:todo_list_firebase/screens/my_drawer.dart';
+import 'package:todo_list_firebase/screens/pending_tasks_screen.dart';
+
+class TabsScreen extends StatefulWidget {
+  const TabsScreen({super.key});
+
+  static const route = 'tabs_screen';
+
+  @override
+  State<TabsScreen> createState() => _TabsScreenState();
+}
+
+class _TabsScreenState extends State<TabsScreen> {
+  int _selectedPageIndex = 0;
+
+  final List<Map<String, dynamic>> _pageDetails = [
+    {
+      'page': const PendingTasksScreen(),
+      'title': 'Pending Tasks',
+    },
+    {
+      'page': const PendingTasksScreen(),
+      'title': 'Complete Tasks',
+    },
+    {
+      'page': const PendingTasksScreen(),
+      'title': 'Favorite Tasks',
+    },
+  ];
+
+  void _addTask(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => const AddTaskScreen(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_pageDetails[_selectedPageIndex]['title']),
+        actions: [
+          IconButton(
+            onPressed: () => _addTask(context),
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
+      drawer: const MyDrawer(),
+      body: _pageDetails[_selectedPageIndex]['page'],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedPageIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedPageIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.list), label: 'Pending Tasks'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.done), label: 'Complete Tasks'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite), label: 'Favorite Tasks'),
+        ],
+      ),
+    );
+  }
+}

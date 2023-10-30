@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_firebase/blocs/switch_theme_bloc/switch_theme_bloc.dart';
 import 'package:todo_list_firebase/blocs/task_bloc/task_bloc.dart';
 import 'package:todo_list_firebase/screens/recycle_bin.dart';
-import 'package:todo_list_firebase/screens/tasks_screen.dart';
+import 'package:todo_list_firebase/screens/tabs_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -31,11 +31,11 @@ class MyDrawer extends StatelessWidget {
                 return ListTile(
                   onTap: () {
                     Navigator.of(context)
-                        .pushReplacementNamed(TasksScreen.route);
+                        .pushReplacementNamed(TabsScreen.route);
                   },
                   leading: const Icon(Icons.folder_special),
                   title: const Text('My Tasks'),
-                  trailing: Text('${state.allTasks.length}'),
+                  trailing: Text('${state.pendingTasks.length}'),
                 );
               },
             ),

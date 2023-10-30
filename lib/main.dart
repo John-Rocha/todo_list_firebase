@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:todo_list_firebase/blocs/switch_theme_bloc/switch_theme_bloc.dart';
 import 'package:todo_list_firebase/blocs/task_bloc/task_bloc.dart';
 import 'package:todo_list_firebase/core/ui/app_theme.dart';
-import 'package:todo_list_firebase/screens/tasks_screen.dart';
+import 'package:todo_list_firebase/screens/tabs_screen.dart';
 import 'package:todo_list_firebase/services/app_router.dart';
 
 Future<void> main() async {
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
                 : AppThemes.appThemeData[AppTheme.lightTheme],
             onGenerateRoute: (settings) =>
                 AppRouter().onGenerateRoute(settings),
-            home: const TasksScreen(),
+            home: TabsScreen(),
           );
         },
       ),
