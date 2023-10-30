@@ -6,6 +6,18 @@ class SwitchThemeState extends Equatable {
 
   @override
   List<Object> get props => [switchValue];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      "switchValue": switchValue,
+    };
+  }
+
+  factory SwitchThemeState.fromMap(Map<String, dynamic> map) {
+    return SwitchThemeState(
+      switchValue: map["switchValue"],
+    );
+  }
 }
 
 final class SwitchThemeInitial extends SwitchThemeState {

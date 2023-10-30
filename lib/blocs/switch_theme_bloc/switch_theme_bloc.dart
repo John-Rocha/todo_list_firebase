@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'switch_theme_event.dart';
 part 'switch_theme_state.dart';
 
-class SwitchThemeBloc extends Bloc<SwitchThemeEvent, SwitchThemeState> {
+class SwitchThemeBloc extends HydratedBloc<SwitchThemeEvent, SwitchThemeState> {
   SwitchThemeBloc() : super(const SwitchThemeInitial(switchValue: false)) {
     on<SwitchOnEvent>(_onSwitchOnEvent);
     on<SwitchOffEvent>(_onSwitchOffEvent);
@@ -25,4 +25,11 @@ class SwitchThemeBloc extends Bloc<SwitchThemeEvent, SwitchThemeState> {
   ) {
     emit(const SwitchThemeInitial(switchValue: false));
   }
+
+  @override
+  SwitchThemeState? fromJson(Map<String, dynamic> json) =>
+      SwitchThemeState.fromMap(json);
+
+  @override
+  Map<String, dynamic>? toJson(SwitchThemeState state) => state.toMap();
 }
