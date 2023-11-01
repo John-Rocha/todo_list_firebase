@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_list_firebase/screens/login_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -12,6 +14,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  final _auth = FirebaseAuth.instance;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -51,7 +56,32 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     minimumSize: const Size(100, 40),
                     maximumSize: const Size(200, 40)),
                 onPressed: () async {
-                  _formKey.currentState!.validate();
+                  final formValid = _formKey.currentState?.validate() ?? false;
+
+                  if (formValid) {
+                    final messenger = ScaffoldMessenger.of(context);
+
+                    await _auth
+                        .sendPasswordResetEmail(
+                            email: _emailController.text.trim())
+                        .then((_) {
+                      messenger.showSnackBar(
+                        const SnackBar(
+                          content: Text('Email sent'),
+                        ),
+                      );
+                      Navigator.of(context)
+                          .pushReplacementNamed(LoginScreen.id);
+                    }).catchError(
+                      (e) {
+                        messenger.showSnackBar(
+                          SnackBar(
+                            content: Text('Email not sent. Error: $e'),
+                          ),
+                        );
+                      },
+                    );
+                  }
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,

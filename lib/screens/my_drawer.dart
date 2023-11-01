@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_list_firebase/screens/login_screen.dart';
 import 'recycle_bin.dart';
 import 'tabs_screen.dart';
 
@@ -53,6 +55,17 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             const Divider(),
+            ListTile(
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('Logout'),
+              onTap: () => FirebaseAuth.instance.signOut().then(
+                    (_) => Navigator.of(context).pushNamedAndRemoveUntil(
+                      LoginScreen.id,
+                      (route) => false,
+                    ),
+                  ),
+            ),
+            const Divider(),
             BlocBuilder<SwitchBloc, SwitchState>(
               builder: (context, state) {
                 return Switch(
@@ -64,7 +77,7 @@ class MyDrawer extends StatelessWidget {
                   },
                 );
               },
-            )
+            ),
           ],
         ),
       ),

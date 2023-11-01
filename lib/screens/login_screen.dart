@@ -28,6 +28,18 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _auth.authStateChanges().listen((User? user) {
+      if (user != null) {
+        Navigator.of(context).pushReplacementNamed(
+          TabsScreen.id,
+        ); //replace the current screen
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
@@ -77,9 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             email: _emailController.text,
                             password: _passwordController.text)
                         .then((_) {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          TabsScreen.id, (route) => false);
-                    }).catchError((error) {
+                      Navigator.of(context).pushReplacementNamed(
+                        TabsScreen.id,
+                      ); //replace the current screen
+                    }).onError((error, stackTrace) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(error.toString()),
@@ -96,10 +109,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: const Text('Don\'t have an Account?')),
               TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(ForgotPasswordScreen.id);
-                  },
-                  child: const Text('Forget Password')),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(ForgotPasswordScreen.id);
+                },
+                child: const Text('Forget Password'),
+              ),
             ],
           ),
         ),
