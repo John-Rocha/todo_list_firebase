@@ -3,9 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:todo_list_firebase/firebase_options.dart';
+import 'package:todo_list_firebase/screens/login_screen.dart';
 
 import 'blocs/bloc_exports.dart';
-import 'screens/tabs_screen.dart';
 import 'services/app_router.dart';
 import 'services/app_theme.dart';
 
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             theme: state.switchValue
                 ? AppThemes.appThemeData[AppTheme.darkTheme]
                 : AppThemes.appThemeData[AppTheme.lightTheme],
-            home: const TabsScreen(),
+            home: const LoginScreen(),
             onGenerateRoute: appRouter.onGenerateRoute,
           );
         },
