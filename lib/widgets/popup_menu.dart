@@ -1,57 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list_firebase/models/task.dart';
+
+import '../models/task.dart';
 
 class PopupMenu extends StatelessWidget {
-  const PopupMenu({
-    super.key,
-    required this.task,
-    required this.onTap,
-  });
-
   final Task task;
-  final VoidCallback onTap;
+  final VoidCallback cancelOrDeleteCallback;
+  final VoidCallback likeOrDislikeCallback;
+  final VoidCallback editTaskCallback;
+  final VoidCallback restoreTaskCallback;
+
+  const PopupMenu({
+    Key? key,
+    required this.task,
+    required this.cancelOrDeleteCallback,
+    required this.likeOrDislikeCallback,
+    required this.editTaskCallback,
+    required this.restoreTaskCallback,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      itemBuilder: !task.isDeleted!
-          ? (context) {
-              return [
+      itemBuilder: task.isDeleted == false
+          ? ((context) => [
                 PopupMenuItem(
+                  onTap: null,
                   child: TextButton.icon(
-                    onPressed: null,
+                    onPressed: editTaskCallback,
                     icon: const Icon(Icons.edit),
                     label: const Text('Edit'),
                   ),
-                  onTap: () {},
                 ),
                 PopupMenuItem(
+                  onTap: likeOrDislikeCallback,
                   child: TextButton.icon(
                     onPressed: null,
-                    icon: const Icon(Icons.bookmark),
-                    label: const Text('Add to Bookmarks'),
+                    icon: task.isFavorite == false
+                        ? const Icon(Icons.bookmark_add_outlined)
+                        : const Icon(Icons.bookmark_remove),
+                    label: task.isFavorite == false
+                        ? const Text('Add to \nBookmarks')
+                        : const Text('Remove from \nBookmarks'),
                   ),
-                  onTap: () {},
                 ),
                 PopupMenuItem(
-                  onTap: onTap,
-                  child: TextButton.icon(
-                    onPressed: null,
-                    icon: const Icon(Icons.delete),
-                    label: const Text('Delete'),
-                  ),
-                ),
-              ];
-            }
+                    onTap: cancelOrDeleteCallback,
+                    child: TextButton.icon(
+                      onPressed: null,
+                      icon: const Icon(Icons.delete),
+                      label: const Text('Delete'),
+                    )),
+              ])
           : (context) => [
                 PopupMenuItem(
-                  onTap: onTap,
-                  child: TextButton.icon(
-                    onPressed: null,
-                    icon: const Icon(Icons.delete),
-                    label: const Text('Restore'),
-                  ),
-                ),
+                    onTap: restoreTaskCallback,
+                    child: TextButton.icon(
+                      onPressed: null,
+                      icon: const Icon(Icons.restore_from_trash),
+                      label: const Text('Restore'),
+                    )),
+                PopupMenuItem(
+                    onTap: cancelOrDeleteCallback,
+                    child: TextButton.icon(
+                      onPressed: null,
+                      icon: const Icon(Icons.delete_forever),
+                      label: const Text('Delete Forever'),
+                    )),
               ],
     );
   }

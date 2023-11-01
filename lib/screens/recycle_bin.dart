@@ -1,36 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_list_firebase/blocs/task_bloc/task_bloc.dart';
-import 'package:todo_list_firebase/screens/my_drawer.dart';
-import 'package:todo_list_firebase/widgets/task_list.dart';
+
+import '../blocs/bloc_exports.dart';
+import '../widgets/tasks_list.dart';
+import 'my_drawer.dart';
 
 class RecycleBin extends StatelessWidget {
-  const RecycleBin({super.key});
+  const RecycleBin({Key? key}) : super(key: key);
 
-  static const route = 'recycle_bin_screen';
+  static const id = 'recycle_bin_screen';
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskBloc, TaskState>(
+    return BlocBuilder<TasksBloc, TasksState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
             title: const Text('Recycle Bin'),
+            actions: [
+              PopupMenuButton(
+                  itemBuilder: (context) => [
+                        PopupMenuItem(
+                            child: TextButton.icon(
+                              onPressed: null,
+                              icon: const Icon(Icons.delete_forever),
+                              label: const Text('Delete all tasks'),
+                            ),
+                            onTap: () => context
+                                .read<TasksBloc>()
+                                .add(DeleteAllTasks())),
+                      ])
+            ],
           ),
           drawer: const MyDrawer(),
-          body: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Chip(
-                    label: Text('${state.removedTasks.length} Tasks'),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: Chip(
+                  label: Text(
+                    '${state.removedTasks.length} Tasks',
                   ),
                 ),
-                TaskList(tasks: state.removedTasks),
-              ],
-            ),
+              ),
+              TasksList(tasksList: state.removedTasks)
+            ],
           ),
         );
       },

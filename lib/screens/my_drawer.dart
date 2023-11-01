@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_list_firebase/blocs/switch_theme_bloc/switch_theme_bloc.dart';
-import 'package:todo_list_firebase/blocs/task_bloc/task_bloc.dart';
-import 'package:todo_list_firebase/screens/recycle_bin.dart';
-import 'package:todo_list_firebase/screens/tabs_screen.dart';
+import 'recycle_bin.dart';
+import 'tabs_screen.dart';
+
+import '../blocs/bloc_exports.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
+  const MyDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,65 +15,53 @@ class MyDrawer extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
               color: Colors.grey,
-              padding: const EdgeInsets.symmetric(
-                vertical: 12,
-                horizontal: 20,
-              ),
               child: Text(
                 'Task Drawer',
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: Theme.of(context).textTheme.headline5,
               ),
             ),
-            BlocBuilder<TaskBloc, TaskState>(
+            BlocBuilder<TasksBloc, TasksState>(
               builder: (context, state) {
-                return ListTile(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(TabsScreen.route);
-                  },
-                  leading: const Icon(Icons.folder_special),
-                  title: const Text('My Tasks'),
-                  trailing: Text('${state.pendingTasks.length} | '
-                      '${state.completedTasks.length} | '
-                      '${state.favoriteTasks.length}'),
+                return GestureDetector(
+                  onTap: () => Navigator.of(context).pushReplacementNamed(
+                    TabsScreen.id,
+                  ),
+                  child: ListTile(
+                    leading: const Icon(Icons.folder_special),
+                    title: const Text('My Tasks'),
+                    trailing: Text(
+                        '${state.pendingTasks.length} | ${state.completedTasks.length}'),
+                  ),
                 );
               },
             ),
             const Divider(),
-            BlocBuilder<TaskBloc, TaskState>(
+            BlocBuilder<TasksBloc, TasksState>(
               builder: (context, state) {
-                return ListTile(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(RecycleBin.route);
-                  },
-                  leading: const Icon(Icons.delete),
-                  title: const Text('Bin'),
-                  trailing: Text('${state.removedTasks.length}'),
+                return GestureDetector(
+                  onTap: () => Navigator.of(context).pushReplacementNamed(
+                    RecycleBin.id,
+                  ),
+                  child: ListTile(
+                    leading: const Icon(Icons.delete),
+                    title: const Text('Bin'),
+                    trailing: Text('${state.removedTasks.length}'),
+                  ),
                 );
               },
             ),
             const Divider(),
-            BlocBuilder<SwitchThemeBloc, SwitchThemeState>(
+            BlocBuilder<SwitchBloc, SwitchState>(
               builder: (context, state) {
-                return ListTile(
-                  leading: Icon(
-                    state.switchValue ? Icons.mode_night : Icons.sunny,
-                    color: Colors.amber,
-                  ),
-                  title: Switch.adaptive(
-                    value: state.switchValue,
-                    onChanged: (newValue) {
-                      newValue
-                          ? context
-                              .read<SwitchThemeBloc>()
-                              .add(const SwitchOnEvent())
-                          : context
-                              .read<SwitchThemeBloc>()
-                              .add(const SwitchOffEvent());
-                    },
-                  ),
+                return Switch(
+                  value: state.switchValue,
+                  onChanged: (newValue) {
+                    newValue
+                        ? context.read<SwitchBloc>().add(SwitchOnEvent())
+                        : context.read<SwitchBloc>().add(SwitchOffEvent());
+                  },
                 );
               },
             )
