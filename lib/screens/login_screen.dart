@@ -1,6 +1,7 @@
-import '../screens/register_screen.dart';
 import 'package:flutter/material.dart';
+
 import '../screens/forgot_password_screen.dart';
+import '../screens/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -76,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pushNamed(ForgotPasswordScreen.id);
-                  }, 
+                  },
                   child: const Text('Forget Password')),
             ],
           ),

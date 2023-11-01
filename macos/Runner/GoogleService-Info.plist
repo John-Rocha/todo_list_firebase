@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAWdoXKUK1m7uX2Ou1u71VtRtCD6100Jv0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1043908794987</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.todoListFirebase.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>rochajohn-firebase-tasks</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rochajohn-firebase-tasks.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1043908794987:ios:fe24bc4111af8d1bc5ef2e</string>
+</dict>
+</plist>

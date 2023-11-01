@@ -19,7 +19,7 @@ class MyDrawer extends StatelessWidget {
               color: Colors.grey,
               child: Text(
                 'Task Drawer',
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
             BlocBuilder<TasksBloc, TasksState>(
